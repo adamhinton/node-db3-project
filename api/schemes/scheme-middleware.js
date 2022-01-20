@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const req = require("express/lib/request");
 const db = require("../../data/db-config");
 
