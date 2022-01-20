@@ -177,7 +177,18 @@ function addStep(scheme_id, step) {
     and resolves to _all the steps_ belonging to the given `scheme_id`,
     including the newly created one.
   */
+
+  return db("steps")
+    .insert({
+      ...step,
+      scheme_id,
+    })
+    .then(() => {
+      return db("steps").where("scheme_id", scheme_id).orderBy("step_number");
+    });
 }
+
+//THE WAY GABE DID addStep IS COMMMENTED OUT AT THE BOTTOM OF THIS FILE. BUT IT DIDN'T PASS THE TESTS.
 
 module.exports = {
   find,
@@ -186,3 +197,26 @@ module.exports = {
   add,
   addStep,
 };
+
+//Gabe's addStep:
+// //function addStep(scheme_id, step) {
+//   // EXERCISE E
+//   /*
+//     1E- This function adds a step to the scheme with the given `scheme_id`
+//     and resolves to _all the steps_ belonging to the given `scheme_id`,
+//     including the newly created one.
+//   */
+
+//     return db("steps")
+//     .insert({
+//       ...step,
+//       scheme_id,
+//     })
+//     .then(() => {
+//       return db("steps as st")
+//         .join("schemes as sc", "sc.scheme_id", "st.schemes_id")
+//         .select("step_id", "step_number", "instructions", "scheme_name")
+//         .orderBy("ste_number")
+//         .where("sc.scheme_id", scheme_id);
+//     });
+// }
